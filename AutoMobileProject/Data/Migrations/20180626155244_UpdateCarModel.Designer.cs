@@ -11,9 +11,10 @@ using System;
 namespace AutoMobileProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180626155244_UpdateCarModel")]
+    partial class UpdateCarModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,25 +89,19 @@ namespace AutoMobileProject.Data.Migrations
 
                     b.Property<string>("Color");
 
-                    b.Property<string>("Make")
-                        .IsRequired();
+                    b.Property<string>("Make");
 
-                    b.Property<double?>("Miles")
-                        .IsRequired();
+                    b.Property<double?>("Miles");
 
-                    b.Property<string>("Model")
-                        .IsRequired();
+                    b.Property<string>("Model");
 
-                    b.Property<string>("Style")
-                        .IsRequired();
+                    b.Property<string>("Style");
 
                     b.Property<string>("UserId");
 
-                    b.Property<string>("Vin")
-                        .IsRequired();
+                    b.Property<string>("Vin");
 
-                    b.Property<int?>("Year")
-                        .IsRequired();
+                    b.Property<int?>("Year");
 
                     b.HasKey("Id");
 

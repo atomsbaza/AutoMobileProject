@@ -1,7 +1,5 @@
-@using AutoMobiles.Models.DB
-
-@inject SignInManager<AspNetUsers> SignInManager
-@inject UserManager<AspNetUsers> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {

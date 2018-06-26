@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AutoMobiles.Models.DB.AspNetUsers>
+﻿@model IEnumerable<ApplicationUser>
 @{
     ViewData["Title"] = "Index";
 }
@@ -74,7 +74,7 @@
                         @Html.DisplayFor(m => item.Email)
                     </td>
                     <td nowrap>
-                        <a asp-controller="Cars" asp-action="Index" asp-route-userId="@item.Id">
+                        <a asp-controller="Car" asp-action="Index" asp-route-userId="@item.Id">
                             <img src="images/car.png" width="40" /> &nbsp; View Cars
                         </a>
                     </td>
