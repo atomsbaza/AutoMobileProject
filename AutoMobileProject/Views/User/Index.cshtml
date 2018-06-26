@@ -1,0 +1,90 @@
+﻿@model IEnumerable<AutoMobiles.Models.DB.AspNetUsers>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form asp-controller="User" asp-action="Index" method="get">
+    <br />
+    <h2>Customers</h2>
+    <hr />
+
+    <div style="height: 60px">
+        <div class="col-sm-3" style="padding-top: 40px">
+            <a asp-controller="Account" asp-action="Register" class="btn btn-primary" style="width: auto">
+                <span class="glyphicon glyphicon-plus"></span> &nbsp;New Customer
+            </a>
+        </div>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="text-right">
+                    <b>Search: </b>
+                    <label class="radio-inline">@Html.RadioButton("option", "name")Name</label>
+                    <label class="radio-inline">@Html.RadioButton("option", "email")Email</label>
+                    <label class="radio-inline">@Html.RadioButton("option", "phone")Phone Number</label>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="pull-right">
+                    <button type="submit" name="submit" value="Search" style="width: auto;" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search"></span> Search
+                    </button>
+                </div>
+                <div class="pull-right col-sm-3" style="width: auto">
+                    @Html.Editor("search", new { htmlAttributes = new { @class="form-control"} })
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <br />
+    <div class="form-border">
+        <table class="table table-condensed table-hover">
+            <tr class="text-info">
+                <th>
+                    @Html.DisplayNameFor(m => m.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Email)
+                </th>
+                <th>@Html.Label("View Cars")</th>
+                <th></th>
+                <th>@Html.Label("Option")</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td nowrap>
+                        @Html.DisplayFor(m => item.FirstName)
+                    </td>
+                    <td nowrap>
+                        @Html.DisplayFor(m => item.LastName)
+                    </td>
+                    <td nowrap>
+                        @Html.DisplayFor(m => item.PhoneNumber)
+                    </td>
+                    <td nowrap>
+                        @Html.DisplayFor(m => item.Email)
+                    </td>
+                    <td nowrap>
+                        <a asp-controller="Cars" asp-action="Index" asp-route-userId="@item.Id">
+                            <img src="images/car.png" width="40" /> &nbsp; View Cars
+                        </a>
+                    </td>
+                    <td nowrap>
+                        @Html.Partial("_TableButtonPartial", new IndividualButtonPartial { CustomerId = item.Id })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</form>
+

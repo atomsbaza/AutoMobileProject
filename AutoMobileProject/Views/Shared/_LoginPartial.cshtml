@@ -1,8 +1,7 @@
-@using Microsoft.AspNetCore.Identity
-@using AutoMobileProject.Models
+@using AutoMobiles.Models.DB
 
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<AspNetUsers> SignInManager
+@inject UserManager<AspNetUsers> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {

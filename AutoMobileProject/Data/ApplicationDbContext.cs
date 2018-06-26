@@ -15,6 +15,9 @@ namespace AutoMobileProject.Data
         {
         }
 
+        public DbSet<Cars> Carses { get; set; }
+        public DbSet<ServiceTypes> ServiceTypeses { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

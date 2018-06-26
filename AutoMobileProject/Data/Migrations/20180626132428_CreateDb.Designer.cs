@@ -11,9 +11,10 @@ using System;
 namespace AutoMobileProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180626132428_CreateDb")]
+    partial class CreateDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,10 +28,6 @@ namespace AutoMobileProject.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("Address");
-
-                    b.Property<string>("City");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -38,10 +35,6 @@ namespace AutoMobileProject.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -58,8 +51,6 @@ namespace AutoMobileProject.Data.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<int>("PostalCode");
 
                     b.Property<string>("SecurityStamp");
 

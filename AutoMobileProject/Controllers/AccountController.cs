@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMobileProject.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Options;
 using AutoMobileProject.Models;
 using AutoMobileProject.Models.AccountViewModels;
 using AutoMobileProject.Services;
+using AutoMobileProject.Utility;
 
 namespace AutoMobileProject.Controllers
 {
@@ -22,19 +24,25 @@ namespace AutoMobileProject.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private ApplicationDbContext _db;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            ApplicationDbContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _roleManager = roleManager;
+            _db = db;
         }
 
         [TempData]
@@ -220,10 +228,39 @@ namespace AutoMobileProject.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Address = model.Address,
+                    City = model.City,
+                    PostalCode = model.PostalCode,
+                    PhoneNumber = model.PhoneNumber
+                };
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    if (!await _roleManager.RoleExistsAsync(StaticDetail.CustomerEndUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(StaticDetail.CustomerEndUser));
+                    }
+                    if (!await _roleManager.RoleExistsAsync(StaticDetail.AdminEndUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(StaticDetail.AdminEndUser));
+                    }
+
+                    if (model.IsAdmin)
+                    {
+                        await _userManager.AddToRoleAsync(user, StaticDetail.AdminEndUser);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, StaticDetail.CustomerEndUser);
+                    }
+                    await _userManager.AddToRoleAsync(user, StaticDetail.AdminEndUser);
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
