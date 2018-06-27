@@ -49,7 +49,7 @@
 
 @if (!Model.Carses.Any())
 {
-    <div class="text-primary form-border"> No Car Found!! Pleasee add a car...</div>
+    <div class="text-primary form-control"> No Car Found!! Pleasee add a car...</div>
 }
 else
 {
@@ -74,20 +74,19 @@ else
                     <td>@Html.DisplayFor(m => item.Model)</td>
                     <td>@Html.DisplayFor(m => item.Style)</td>
                     <td>@Html.DisplayFor(m => item.Color)</td>
-                    <td>@Html.DisplayFor(m => item.Color)</td>
                     @if (User.IsInRole(StaticDetail.CustomerEndUser))
                     {
-                        <td style="width: 100%">
-                            <a class="btn btn-primary" asp-controller="Service" asp-action="Index" asp-route-carId="@item.Id">
-                                <span class="glyphicon glyphicon-wrench"> &nbsp; Service History</span>
+                        <td style="width: 100px">
+                            <a class="btn btn-sm btn-primary" asp-controller="Service" asp-action="Index" asp-route-carId="@item.Id">
+                                <span class="glyphicon glyphicon-wrench"></span>&nbsp; Service History
                             </a>
                         </td>
                     }
                     else
                     {
-                        <td style="width: 100%">
-                            <a class="btn btn-success" asp-controller="Service" asp-action="Index" asp-route-carId="@item.Id">
-                                <span class="glyphicon glyphicon-plus-sign"> &nbsp; New Service</span>
+                        <td style="width: 100px">
+                            <a class="btn btn-sm btn-success" asp-controller="Service" asp-action="Index" asp-route-carId="@item.Id">
+                                <span class="glyphicon glyphicon-plus-sign"></span>&nbsp; New Service
                             </a>
                         </td>
                     }

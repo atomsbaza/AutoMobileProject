@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace AutoMobileProject.Data
 
         public DbSet<Cars> Carses { get; set; }
         public DbSet<ServiceTypes> ServiceTypeses { get; set; }
+        public DbSet<Service> Services { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
