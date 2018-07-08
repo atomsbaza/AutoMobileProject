@@ -8,10 +8,10 @@
 <h2>Car Record for Customer</h2>
 <hr />
 <div class="row" style="padding-bottom: 80px">
-    <div class="col-sm-6" style="padding-bottom: 80px">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-bottom: 80px">
         <a asp-action="Create" asp-route-userID="@Model.User.Id" class="btn btn-primary" style="width: 150px;">Add New Car</a>
     </div>
-    <div class="col-sm-6">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <div class="row">
             <div class="col-sm-4">
                 <label asp-for="User.FirstName" class="control-label"></label>
@@ -53,48 +53,50 @@
 }
 else
 {
-    <div class="form-border">
-        <table class="table table-condensed table-hover">
-            <tr>
-                <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Vin)</th>
-                <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Make)</th>
-                <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Model)</th>
-                <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Style)</th>
-                <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Color)</th>
-                <th></th>
-                <th></th>
-                <th>@Html.Label("Option")</th>
-            </tr>
-
-            @foreach (var item in Model.Carses)
-            {
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <table class="table table-condensed table-hover">
                 <tr>
-                    <td>@Html.DisplayFor(m => item.Vin)</td>
-                    <td>@Html.DisplayFor(m => item.Make)</td>
-                    <td>@Html.DisplayFor(m => item.Model)</td>
-                    <td>@Html.DisplayFor(m => item.Style)</td>
-                    <td>@Html.DisplayFor(m => item.Color)</td>
-                    @if (User.IsInRole(StaticDetail.CustomerEndUser))
-                    {
-                        <td style="width: 100px">
-                            <a class="btn btn-sm btn-primary" asp-controller="Service" asp-action="Index" asp-route-carId="@item.Id">
-                                <span class="glyphicon glyphicon-wrench"></span>&nbsp; Service History
-                            </a>
-                        </td>
-                    }
-                    else
-                    {
-                        <td style="width: 100px">
-                            <a class="btn btn-sm btn-success" asp-controller="Service" asp-action="Index" asp-route-carId="@item.Id">
-                                <span class="glyphicon glyphicon-plus-sign"></span>&nbsp; New Service
-                            </a>
-                        </td>
-                    }
-                    <td>
-                        @Html.Partial("_TableButtonPartial", new IndividualButtonPartial { CarId = item.Id })
-                    </td>
+                    <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Vin)</th>
+                    <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Make)</th>
+                    <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Model)</th>
+                    <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Style)</th>
+                    <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Color)</th>
+                    <th></th>
+                    <th></th>
+                    <th>@Html.Label("Option")</th>
                 </tr>
-            }
-        </table>
+
+                @foreach (var item in Model.Carses)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => item.Vin)</td>
+                        <td>@Html.DisplayFor(m => item.Make)</td>
+                        <td>@Html.DisplayFor(m => item.Model)</td>
+                        <td>@Html.DisplayFor(m => item.Style)</td>
+                        <td>@Html.DisplayFor(m => item.Color)</td>
+                        @if (User.IsInRole(StaticDetail.CustomerEndUser))
+                        {
+                            <td style="width: 100px">
+                                <a class="btn btn-sm btn-primary" asp-controller="Services" asp-action="Create" asp-route-carId="@item.Id">
+                                    <span class="glyphicon glyphicon-wrench"></span>&nbsp; Service History
+                                </a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="width: 100px">
+                                <a class="btn btn-sm btn-success" asp-controller="Services" asp-action="Create" asp-route-carId="@item.Id">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>&nbsp; New Service
+                                </a>
+                            </td>
+                        }
+                        <td>
+                            @Html.Partial("_TableButtonPartial", new IndividualButtonPartial { CarId = item.Id })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
     </div>
 }

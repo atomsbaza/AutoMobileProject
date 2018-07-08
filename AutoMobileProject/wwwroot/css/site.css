@@ -34,13 +34,6 @@
     }
 }
 
-.form-border {
-    border: 1px solid #bbb9b9;
-    border-radius: 5px;
-    padding: 10px;
-    padding-top: 20px;
-}
-
 .custom-label {
     display: block;
     width: 100%;

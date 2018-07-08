@@ -1,42 +1,41 @@
 ﻿@model AutoMobileProject.Models.ViewModels.CarAndServicesViewModel
 
 <h4>Car record for Customer</h4>
-<div class="row form-control">
+<div class="row">
     <div class="col-sm-5">
         <div class="row">
             <div class="col-sm-3">
-                <label asp-for="Cars.Make" class="control-label"></label>
+                <label asp-for="Make" class="control-label"></label>
             </div>
             <div class="col-sm-9" style="padding-bottom: 5px;">
-                <input asp-for="Cars.Make" disabled class="form-control"/>
+                <input asp-for="Make" disabled class="form-control" />
             </div>
         </div>
         <div class="row">
             <div class="col-sm-3">
-                <label asp-for="Cars.Model" class="control-label"></label>
+                <label asp-for="Model" class="control-label"></label>
             </div>
             <div class="col-sm-9" style="padding-bottom: 5px;">
-                <input asp-for="Cars.Model" disabled class="form-control"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <label asp-for="Cars.Style" class="control-label"></label>
-            </div>
-            <div class="col-sm-9" style="padding-bottom: 5px;">
-                <input asp-for="Cars.Style" disabled class="form-control"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <label asp-for="Cars.Year" class="control-label"></label>
-            </div>
-            <div class="col-sm-9" style="padding-bottom: 5px;">
-                <input asp-for="Cars.Year" disabled class="form-control"/>
+                <input asp-for="Model" disabled class="form-control" />
             </div>
         </div>
     </div>
     <div class="col-sm-5 col-sm-offset-2">
-
+        <div class="row">
+            <div class="col-sm-3">
+                <label asp-for="Style" class="control-label"></label>
+            </div>
+            <div class="col-sm-9" style="padding-bottom: 5px;">
+                <input asp-for="Style" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <label asp-for="Year" class="control-label"></label>
+            </div>
+            <div class="col-sm-9" style="padding-bottom: 5px;">
+                <input asp-for="Year" disabled class="form-control" />
+            </div>
+        </div>
     </div>
 </div>

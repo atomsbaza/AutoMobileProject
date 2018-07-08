@@ -23,16 +23,25 @@ namespace AutoMobileProject.Controllers
             return View();
         }
 
-        public IActionResult Create(int cadId)
+        public IActionResult Create(int carId)
         {
-            var model = new CarAndServicesViewModel
+            var car = _db.Carses.FirstOrDefault(c => c.Id == carId);
+            if (car != null)
             {
-                Cars = _db.Carses.FirstOrDefault(c => c.Id == cadId),
-                ServiceTypeses = _db.ServiceTypeses.ToList(),
-                PastServices = _db.Services.Where(s => s.CarId == cadId).OrderByDescending(s => s.DateAdded).Take(5)
-            };
+                var model = new CarAndServicesViewModel
+                {
+                    carId = car.Id,
+                    Make = car.Make,
+                    Model = car.Model,
+                    Style =  car.Style,
+                    Vin = car.Vin,
+                    Year = car.Year,
+                    ServiceTypeses = _db.ServiceTypeses.ToList(),
+                    PastServices = _db.Services.Where(s => s.CarId == carId).OrderByDescending(s => s.DateAdded).Take(5)
+                };
 
-            return View(model);
+                return View(model);
+            }
         }
 
         [HttpPost]
@@ -41,28 +50,29 @@ namespace AutoMobileProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.NewService.CarId = model.Cars.Id;
+                model.NewService.CarId = model.carId;
                 model.NewService.DateAdded = DateTime.Now;
                 _db.Add(model.NewService);
                 await _db.SaveChangesAsync();
-                return RedirectToAction(nameof(Create), new { carId = model.Cars.Id });
+                return RedirectToAction(nameof(Create), new { carId = model.carId });
             }
 
-            var newmodel = new CarAndServicesViewModel
+            var car = _db.Carses.FirstOrDefault(c => c.Id == model.carId);
+            if (car != null)
             {
-                Cars = _db.Carses.FirstOrDefault(c => c.Id == model.Cars.Id),
-                ServiceTypeses = _db.ServiceTypeses.ToList(),
-                PastServices = _db.Services.Where(s => s.CarId == model.Cars.Id).OrderByDescending(s => s.DateAdded).Take(5)
-            };
+                var newmodel = new CarAndServicesViewModel
+                {
+                    carId = car.Id,
+                    Make = car.Make,
+                    Model = car.Model,
+                    Style = car.Style,
+                    Vin = car.Vin,
+                    Year = car.Year,
+                    ServiceTypeses = _db.ServiceTypeses.ToList(),
+                    PastServices = _db.Services.Where(s => s.CarId == model.carId).OrderByDescending(s => s.DateAdded).Take(5)
+                };
 
-            return View(newmodel);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _db.Dispose();
+                return View(newmodel);
             }
         }
     }
