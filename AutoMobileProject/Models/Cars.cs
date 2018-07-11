@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,12 +15,15 @@ namespace AutoMobileProject.Models
         public int Id { get; set; }
 
         [Required]
+        [DisplayName("Vehicle number")]
         public string Vin { get; set; }
 
         [Required]
+        [DisplayName("Brand")]
         public string Make { get; set; }
 
         [Required]
+        [DisplayName("Model")]
         public string Model { get; set; }
 
         [Required]

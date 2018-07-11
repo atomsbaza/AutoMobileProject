@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMobileProject.Data;
 using AutoMobileProject.Models;
+using AutoMobileProject.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutoMobileProject.Controllers
 {
+    [Authorize(Roles = StaticDetail.AdminEndUser)]
     public class ServiceTypesController : Controller
     {
         private readonly ApplicationDbContext _db;

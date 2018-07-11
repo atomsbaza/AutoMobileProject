@@ -3,14 +3,14 @@
     ViewData["Title"] = "Create";
 }
 
-<br/>
+<br />
 @Html.Partial("_CarDetailsInService")
-<hr/>
+<hr />
 
 <h4>Service</h4>
 <div class="row">
     <form asp-action="Create">
-        <input asp-for="carId" hidden/>
+        <input asp-for="CarId" hidden />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="col-sm-5">
             <div class="row">
@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col-sm-3">
                 </div>
-                <div class="col-sm-9" style="padding-bottom: 5px;">
+                <div class="col-sm-5" style="padding-bottom: 5px;">
                     <input type="submit" value="Add Service" class="btn btn-sm btn-primary form-control" />
                 </div>
             </div>
@@ -56,4 +56,30 @@
             </div>
         </div>
     </form>
+</div>
+
+
+<br />
+<div class="row">
+    <h4>Pass Service Records</h4>
+    <br />
+    @Html.Partial("_DisplayPastServices", Model)
+    <div class="row">
+        @if (!Model.PastServices.Any())
+        {
+            <div class="col-sm-12 text-primary" style="padding-bottom: 20px;">
+                No past service records
+            </div>  
+        }
+        <div class="col-sm-3">
+            <a asp-controller="Car" asp-action="Index" asp-route-userId="@Model.UserId" class="btn btn-sm btn-success">Back to lists</a>
+        </div>
+        
+        @if (Model.PastServices.Count() > 4)
+        {
+            <div class="pull-right" style="padding-right: 20px;">
+                 <a asp-action="Index" asp-route-carId="@Model.CarId" class="text-primary">Load all</a>
+            </div>  
+        }
+    </div>
 </div>

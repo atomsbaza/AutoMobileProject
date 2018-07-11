@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using AutoMobileProject.Data;
 using AutoMobileProject.Models;
 using AutoMobileProject.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutoMobileProject.Controllers
 {
+    [Authorize]
     public class CarController : Controller
     {
         private readonly ApplicationDbContext _db;

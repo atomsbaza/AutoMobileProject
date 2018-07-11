@@ -1,0 +1,39 @@
+﻿@using AutoMobileProject.Utility
+@model AutoMobileProject.Models.ViewModels.CarAndServicesViewModel
+
+<div>
+    <table class="table table-condensed table-hover">
+        <tr class="text-info">
+            <th>@Html.DisplayNameFor(m => m.PastServices.FirstOrDefault().Miles)</th>
+            <th>@Html.DisplayNameFor(m => m.PastServices.FirstOrDefault().Price)</th>
+            <th>@Html.DisplayNameFor(m => m.PastServices.FirstOrDefault().Details)</th>
+            <th>@Html.DisplayNameFor(m => m.PastServices.FirstOrDefault().DateAdded)</th>
+            <th>@Html.DisplayNameFor(m => m.PastServices.FirstOrDefault().ServiceTypes.ServiceName)</th>
+            <th>@Html.Label("Option")</th>
+        </tr>
+
+        @foreach (var item in Model.PastServices)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => item.Miles)</td>
+                <td>@Html.DisplayFor(m => item.Price)</td>
+                <td>@Html.DisplayFor(m => item.Details)</td>
+                <td>@Html.DisplayFor(m => item.DateAdded)</td>
+                <td>@Html.DisplayFor(m => item.ServiceTypes.ServiceName)</td>
+                <td>
+                    @if (item.DateAdded.Date == DateTime.Now.Date && User.IsInRole(StaticDetail.AdminEndUser))
+                    {
+                        @Html.Partial("_IndividualButtonPartial", new IndividualButtonPartial
+                        {
+                            Action = "Delete",
+                            ButonType = "btn-danger",
+                            Glyph = "trash",
+                            Text = "Delete",
+                            ServiceTypesId = item.Id
+                        })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>

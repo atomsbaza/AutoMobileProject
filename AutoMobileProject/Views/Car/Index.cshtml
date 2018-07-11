@@ -56,13 +56,22 @@ else
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <table class="table table-condensed table-hover">
-                <tr>
+                <tr class="text-info">
                     <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Vin)</th>
                     <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Make)</th>
                     <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Model)</th>
                     <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Style)</th>
                     <th>@Html.DisplayNameFor(m => m.Carses.FirstOrDefault().Color)</th>
-                    <th></th>
+                    <th>
+                        @if (User.IsInRole(StaticDetail.CustomerEndUser))
+                        {
+                            @Html.Label("Service History")
+                        }
+                        else
+                        {
+                            @Html.Label("New Service")
+                        }
+                    </th>
                     <th></th>
                     <th>@Html.Label("Option")</th>
                 </tr>

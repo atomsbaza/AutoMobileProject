@@ -273,7 +273,6 @@ namespace AutoMobileProject.Controllers
                         await _userManager.AddToRoleAsync(user, StaticDetail.CustomerEndUser);
                     }
 
-                    await _userManager.AddToRoleAsync(user, StaticDetail.AdminEndUser);
                     _logger.LogInformation("User created a new account with password.");
 
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

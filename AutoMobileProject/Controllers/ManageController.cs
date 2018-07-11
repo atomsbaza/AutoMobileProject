@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using AutoMobileProject.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -22,6 +23,7 @@ namespace AutoMobileProject.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _db;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
@@ -32,12 +34,14 @@ namespace AutoMobileProject.Controllers
         public ManageController(
           UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
+          ApplicationDbContext db,
           IEmailSender emailSender,
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _db = db;
             _emailSender = emailSender;
             _logger = logger;
             _urlEncoder = urlEncoder;
@@ -61,7 +65,12 @@ namespace AutoMobileProject.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Address = user.Address,
+                City = user.City,
+                PostalCode = user.PostalCode
             };
 
             return View(model);
@@ -82,24 +91,38 @@ namespace AutoMobileProject.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var email = user.Email;
-            if (model.Email != email)
-            {
-                var setEmailResult = await _userManager.SetEmailAsync(user, model.Email);
-                if (!setEmailResult.Succeeded)
-                {
-                    throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
-                }
-            }
+            // Update Email
+            //var email = user.Email;
+            //if (model.Email != email)
+            //{
+            //    var setEmailResult = await _userManager.SetEmailAsync(user, model.Email);
+            //    if (!setEmailResult.Succeeded)
+            //    {
+            //        throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
+            //    }
+            //}
 
-            var phoneNumber = user.PhoneNumber;
-            if (model.PhoneNumber != phoneNumber)
+            //var phoneNumber = user.PhoneNumber;
+            //if (model.PhoneNumber != phoneNumber)
+            //{
+            //    var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
+            //    if (!setPhoneResult.Succeeded)
+            //    {
+            //        throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
+            //    }
+            //}
+
+            var userInDb = _db.Users.FirstOrDefault(u => u.Email.Equals(model.Email));
+            if (userInDb != null)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
-                }
+                userInDb.FirstName = model.FirstName;
+                userInDb.LastName = model.LastName;
+                userInDb.Address = model.Address;
+                userInDb.City = model.City;
+                userInDb.PhoneNumber = model.PhoneNumber;
+                userInDb.PostalCode = model.PostalCode;
+
+                await _db.SaveChangesAsync();
             }
 
             StatusMessage = "Your profile has been updated";

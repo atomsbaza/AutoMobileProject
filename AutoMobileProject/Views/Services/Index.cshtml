@@ -1,0 +1,18 @@
+﻿@model AutoMobileProject.Models.ViewModels.CarAndServicesViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br/>
+@Html.Partial("_CarDetailsInService")
+<hr/>
+<br/>
+
+<div class="row">
+    <h2>Service Record</h2>
+    @Html.Partial("_DisplayPastServices", Model)
+    <input type="button" class="btn btn-sm btn-primary" value="Print" onclick="window.print();"/>
+    <a asp-action="Index" asp-controller="Car" asp-route-userId="@Model.UserId" class="btn btn-sm btn-success">Back to list</a>
+</div>
+
+

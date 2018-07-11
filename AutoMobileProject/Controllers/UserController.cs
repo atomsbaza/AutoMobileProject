@@ -4,11 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMobileProject.Data;
 using AutoMobileProject.Models;
+using AutoMobileProject.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutoMobileProject.Controllers
 {
+    [Authorize(Roles = StaticDetail.AdminEndUser)]
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _db;

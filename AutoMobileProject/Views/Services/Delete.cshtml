@@ -1,0 +1,58 @@
+﻿@model AutoMobileProject.Models.Service
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+<h2>Delete Service</h2>
+<hr />
+
+<form asp-action="Delete">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CarId" />
+            <fieldset disabled>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label asp-for="Miles" class="custom-label"></label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input asp-for="Miles" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label asp-for="ServiceTypes.ServiceName" class="custom-label"></label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input asp-for="ServiceTypes.ServiceName" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label asp-for="Details" class="custom-label"></label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input asp-for="Details" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label asp-for="Price" class="custom-label"></label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input asp-for="Price" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-sm btn-danger" />
+                <a asp-action="Create" asp-route-carId="@Model.CarId" class="btn btn-sm btn-success">Back to list</a>
+            </div>
+        </div>
+    </div>
+</form>
