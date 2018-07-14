@@ -144,6 +144,7 @@ namespace AutoMobileProject.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id, Cars cars)
         {
             var car = await _db.Carses.SingleOrDefaultAsync(c => c.Id == id);
+
             if (car == null)
             {
                 NotFound();

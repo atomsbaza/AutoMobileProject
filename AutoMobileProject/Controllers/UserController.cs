@@ -134,8 +134,15 @@ namespace AutoMobileProject.Controllers
             }
 
             var findUserDelete = await _db.Users.SingleOrDefaultAsync(m => m.Id == id);
+            var cars = _db.Carses.Where(c => c.UserId == findUserDelete.Id).ToList();
+            foreach (var carList in cars)
+            {
+                var services = _db.Services.Where(x => x.CarId == carList.Id);
+                _db.Services.RemoveRange(services);
+            }
 
-            _db.Remove(findUserDelete);
+            _db.Carses.RemoveRange(cars);
+            _db.Users.Remove(findUserDelete);
             await _db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
